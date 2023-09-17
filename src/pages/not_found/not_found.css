@@ -2,10 +2,34 @@
   width: 96%;
   background: #555555;
   color: #fff;
-  margin: 0 0 0 0;
+   margin: 0 0 0 0;
   padding: 6px 2% 6px 2%;
   font-family: "trebuchet MS", Verdana, sans-serif;
 }
-div{
-    display: block;
+div {
+  display: block;
 }
+
+#content {
+  margin-top: 0.85rem;
+  display: flex;
+  justify-content: center;
+align-content: center;
+}
+
+.content-container {
+  width: 96%;
+  background: #fff;
+  margin-top: 1px;
+ }
+
+fieldset {
+   border: 1px solid black !important;
+  font-family: Verdana, Arial;
+ }
+
+h2 {
+   margin: 0;
+  color: #cc0000;
+}
+
