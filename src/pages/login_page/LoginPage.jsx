@@ -1,11 +1,10 @@
-import React from 'react';
-
+import React from "react";
 const LoginPage = () => {
-    return (
-        <div>
-            Sehifeye xos geldiniz
-        </div>
-    );
+  return (
+    <>
+      Login
+     </>
+  );
 };
 
 export default LoginPage;
