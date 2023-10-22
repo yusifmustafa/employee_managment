@@ -47,21 +47,25 @@ const HomePage = () => {
         </div>
       </div>
 
-      <div style={{marginTop:"4%"}}> 
+      <div style={{ marginTop: "4%" }}>
         <h3 className="mt-4 ml-5">List of Admins</h3>
-        <table className="table">
+        <table
+          style={{ textAlign: "center", width: "50%" }}
+          className="table"
+        >
           <thead>
             <tr>
-              <th></th>
-              <th scope="col">Email</th>
-              <th scope="col">Action</th>
+              <th scope="row">Email</th>
+              <th scope="row">Action</th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <th scope="row"></th>
               <td>Admin</td>
-              <td>Admin</td>
+              <td>
+                <button className="btn btn-primary">Edit</button>
+                <button className="btn btn-danger ml-3">Delete</button>
+              </td>
             </tr>
           </tbody>
         </table>

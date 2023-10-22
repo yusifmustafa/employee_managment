@@ -2,6 +2,8 @@ import { createBrowserRouter } from "react-router-dom";
 import LoginPage from "../pages/login_page/LoginPage.jsx";
 import NotFound from "../pages/not_found/NotFound.jsx";
 import HomePage from "../components/home_page/HomePage.jsx";
+import EmployeeManagment from "../components/employee_managment/employee_managment.jsx";
+import Add_employee from "../components/add_employee/Add_employee.jsx";
 
 export const routes = createBrowserRouter([
   {
@@ -9,19 +11,23 @@ export const routes = createBrowserRouter([
     element: <LoginPage />,
   },
   {
-    path: "/homePage",
-    element: <HomePage/>,
+    path: "/dashboard",
+    element: <HomePage />,
   },
   {
-    path: "/addUser",
-    element: "add user",
+    path: "/manageEmployees",
+    element: <EmployeeManagment />,
   },
   {
     path: "/userList",
     element: "user list",
   },
   {
-    path:"*",
-    element:<NotFound/>
-  }
+    path: "/addUser",
+    element: <Add_employee />,
+  },
+  {
+    path: "*",
+    element: <NotFound />,
+  },
 ]);

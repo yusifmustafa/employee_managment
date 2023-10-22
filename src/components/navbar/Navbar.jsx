@@ -14,6 +14,7 @@ import React from "react";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import PeopleIcon from "@mui/icons-material/People";
 import LogoutIcon from "@mui/icons-material/Logout";
+import { Link } from "react-router-dom";
 const Navbar = () => {
   const [state, setState] = React.useState({
     top: false,
@@ -35,10 +36,14 @@ const Navbar = () => {
   };
 
   const items = [
-    { text: "Dashboard", icon: <DashboardIcon /> },
-    { text: "Manage Employees", icon: <PeopleIcon /> },
-    { text: "Profile", icon: <AccountCircleIcon /> },
-    { text: "Logout", icon: <LogoutIcon /> },
+    { text: "Dashboard", icon: <DashboardIcon />, link: "/dashboard" },
+    {
+      text: "Manage Employees",
+      icon: <PeopleIcon />,
+      link: "/manageEmployees",
+    },
+    { text: "Profile", icon: <AccountCircleIcon />, link: "/profile" },
+    { text: "Logout", icon: <LogoutIcon />, link: "/logOut" },
   ];
 
   const list = (anchor) => (
@@ -51,12 +56,14 @@ const Navbar = () => {
       <h3 style={{ textAlign: "center" }}>Admin Dashboard</h3>
       <List>
         {items.map((item, index) => (
-          <ListItem key={index} disablePadding>
-            <ListItemButton>
-              <ListItemIcon>{item.icon}</ListItemIcon>
-              <ListItemText primary={item.text} />
-            </ListItemButton>
-          </ListItem>
+          <Link key={index} to={item.link}>
+            <ListItem disablePadding>
+              <ListItemButton>
+                <ListItemIcon>{item.icon}</ListItemIcon>
+                <ListItemText primary={item.text} />
+              </ListItemButton>
+            </ListItem>
+          </Link>
         ))}
       </List>
       <Divider />
