@@ -13,6 +13,7 @@ import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import React from "react";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import PeopleIcon from "@mui/icons-material/People";
+import CategoryIcon from "@mui/icons-material/Category";
 import LogoutIcon from "@mui/icons-material/Logout";
 import { Link } from "react-router-dom";
 const Navbar = () => {
@@ -42,6 +43,7 @@ const Navbar = () => {
       icon: <PeopleIcon />,
       link: "/manageEmployees",
     },
+    { text: "Category", icon: <CategoryIcon />, link: "/category" },
     { text: "Profile", icon: <AccountCircleIcon />, link: "/profile" },
     { text: "Logout", icon: <LogoutIcon />, link: "/logOut" },
   ];

@@ -47,12 +47,17 @@ const HomePage = () => {
         </div>
       </div>
 
-      <div style={{ marginTop: "4%" }}>
-        <h3 className="mt-4 ml-5">List of Admins</h3>
-        <table
-          style={{ textAlign: "center", width: "50%" }}
-          className="table"
-        >
+      <div
+        style={{
+          marginTop: "4%",
+          display: "flex",
+          justifyContent: "center",
+          flexDirection: "column",
+          alignItems: "center",
+        }}
+      >
+        <h3 className="mt-4">List of Admins</h3>
+        <table style={{ textAlign: "center", width: "50%" }} className="table">
           <thead>
             <tr>
               <th scope="row">Email</th>
