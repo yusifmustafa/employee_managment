@@ -5,34 +5,41 @@ import HomePage from "../components/home_page/HomePage.jsx";
 import EmployeeManagment from "../components/employee_managment/employee_managment.jsx";
 import Add_employee from "../components/add_employee/Add_employee.jsx";
 import Category from "../components/category/Category.jsx";
+import Layout from "../layout/Layout.jsx";
 
 export const routes = createBrowserRouter([
   {
     path: "/",
-    element: <LoginPage />,
-  },
-  {
-    path: "/dashboard",
-    element: <HomePage />,
-  },
-  {
-    path: "/manageEmployees",
-    element: <EmployeeManagment />,
-  },
-  {
-    path: "/userList",
-    element: "user list",
-  },
-  {
-    path: "/addUser",
-    element: <Add_employee />,
-  },
-  {
-    path: "/category",
-    element: <Category />,
-  },
-  {
-    path: "*",
-    element: <NotFound />,
+    element: <Layout />,
+    children: [
+      {
+        index: true,
+        element: <LoginPage />,
+      },
+      { 
+        path: "/dashboard",
+        element: <HomePage />,
+      },
+      {
+        path: "/manageEmployees",
+        element: <EmployeeManagment />,
+      },
+      {
+        path: "/userList",
+        element: "user list",
+      },
+      {
+        path: "/addUser",
+        element: <Add_employee />,
+      },
+      {
+        path: "/category",
+        element: <Category />,
+      },
+      {
+        path: "*",
+        element: <NotFound />,
+      },
+    ],
   },
 ]);

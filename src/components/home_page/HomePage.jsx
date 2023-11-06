@@ -1,9 +1,7 @@
-import Navbar from "../navbar/Navbar.jsx";
 
 const HomePage = () => {
   return (
     <>
-      <Navbar />
       <div
         style={{
           display: "flex",
