@@ -1,9 +1,9 @@
 const Add_employee = () => {
   return (
-    <div className="mt-4">
+    <div>
       <h3 className="text-center">Add Employee</h3>
       <div
-        className="col-12 mt-4"
+        className="col-12"
         style={{
           display: "flex",
           justifyContent: "center",

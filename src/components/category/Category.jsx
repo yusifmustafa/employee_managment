@@ -41,14 +41,13 @@ const Category = () => {
           </Typography>
           <Typography id="modal-modal-description" sx={{ mt: 2 }}>
             <input
+              name="categoryName"
               type="text"
               className="form-control"
-              placeholder="Username"
-              aria-label="Username"
-              aria-describedby="basic-addon1"
+              placeholder="Enter Category"
             />
             <Box sx={{ display: "flex", justifyContent: "center" }}>
-              <button className="btn btn-success">Add Category</button>
+              <button className="btn btn-success mt-4">Add Category</button>
             </Box>
           </Typography>
         </Box>
