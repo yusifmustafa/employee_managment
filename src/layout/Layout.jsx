@@ -1,12 +1,12 @@
 import { Outlet } from "react-router-dom";
 import Navbar from "../components/navbar/Navbar";
-import { EmpManagmentContext } from "../context/EmpManagment.jsx";
+import EmpManagmentProvider from "../context/EmpManagmentProvider.jsx";
 const Layout = () => {
   return (
-    <EmpManagmentContext>
+    <EmpManagmentProvider>
       <Navbar />
       <Outlet />
-    </EmpManagmentContext>
+    </EmpManagmentProvider>
   );
 };
 
