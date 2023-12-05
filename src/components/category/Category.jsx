@@ -1,8 +1,15 @@
 import { Box, Modal, Typography } from "@mui/material";
-import React from "react";
+import React, { useContext, useEffect } from "react";
+import { EmpManagmentContext } from "../../context/EmpManagmentProvider.jsx";
 
 const Category = () => {
   const [openCategoryModal, setOpenCategoryModal] = React.useState(false);
+  const context = useContext(EmpManagmentContext);
+  const { getAllCategories, allCategories } = context;
+
+  useEffect(() => {
+    getAllCategories();
+  }, []);
 
   const style = {
     position: "absolute",
@@ -66,40 +73,31 @@ const Category = () => {
             </button>
           </div>
           <h4>Name</h4>
-          <ul className="list-group list-group-flush">
-            <li
-              style={{
-                background: "none",
-              }}
-              className="list-group-item"
-            >
-              IT
-            </li>
-            <li
-              style={{
-                background: "none",
-              }}
-              className="list-group-item"
-            >
-              Development
-            </li>
-            <li
-              style={{
-                background: "none",
-              }}
-              className="list-group-item"
-            >
-              Designing
-            </li>
-            <li
-              style={{
-                background: "none",
-              }}
-              className="list-group-item"
-            >
-              Managment
-            </li>
-          </ul>
+          {allCategories.map((item) => {
+            console.log(item);
+            return (
+              <ul className="list-group list-group-flush">
+                <li
+                  style={{
+                    background: "none",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "space-between",
+                  }}
+                  className="list-group-item"
+                >
+                  {item.category_name}
+                  <div
+                    style={{
+                      marginRight: "2%",
+                    }}
+                  >
+                    <button className="btn btn-danger">Delete</button>
+                  </div>
+                </li>
+              </ul>
+            );
+          })}
         </div>
       </div>
     </div>
