@@ -5,8 +5,15 @@ import { EmpManagmentContext } from "../../context/EmpManagmentProvider.jsx";
 const Category = () => {
   const [openCategoryModal, setOpenCategoryModal] = React.useState(false);
   const context = useContext(EmpManagmentContext);
-  const { getAllCategories, allCategories } = context;
-
+  const {
+    getAllCategories,
+    allCategories,
+    handleOnChangeAddCategory,
+    createNewCategory,
+    category,
+    deleteCategory,
+  } = context;
+  console.log(category);
   useEffect(() => {
     getAllCategories();
   }, []);
@@ -48,13 +55,27 @@ const Category = () => {
           </Typography>
           <Typography id="modal-modal-description" sx={{ mt: 2 }}>
             <input
-              name="categoryName"
+              name="category_name"
+              onChange={(e) => {
+                handleOnChangeAddCategory({
+                  name: e.target.name,
+                  value: e.target.value,
+                });
+              }}
+              value={category.category_name ? category.category_name : ""}
               type="text"
               className="form-control"
               placeholder="Enter Category"
             />
             <Box sx={{ display: "flex", justifyContent: "center" }}>
-              <button className="btn btn-success mt-4">Add Category</button>
+              <button
+                className="btn btn-success mt-4"
+                onClick={() => {
+                  createNewCategory(category);
+                }}
+              >
+                Add Category
+              </button>
             </Box>
           </Typography>
         </Box>
@@ -73,10 +94,10 @@ const Category = () => {
             </button>
           </div>
           <h4>Name</h4>
-          {allCategories.map((item) => {
+          {allCategories.map((item, index) => {
             console.log(item);
             return (
-              <ul className="list-group list-group-flush">
+              <ul key={index} className="list-group list-group-flush">
                 <li
                   style={{
                     background: "none",
@@ -92,7 +113,14 @@ const Category = () => {
                       marginRight: "2%",
                     }}
                   >
-                    <button className="btn btn-danger">Delete</button>
+                    <button
+                      onClick={() => {
+                        deleteCategory(item.id);
+                      }}
+                      className="btn btn-danger"
+                    >
+                      Delete
+                    </button>
                   </div>
                 </li>
               </ul>
