@@ -8,12 +8,11 @@ const Add_employee = () => {
     employee,
     createNewEmployee,
     handleOnChangeFile,
-    file,
     allCategories,
     getAllCategories,
   } = context;
   console.log("employee", employee);
-  console.log("file:", file);
+  // console.log("file:", file);
   console.log("emp_category:", employee.emp_categoryId);
 
   useEffect(() => {

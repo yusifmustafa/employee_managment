@@ -7,9 +7,9 @@ const ALL_CATEGORY_URL = "/api/createcategory/allcategory";
 const CREATE_CATEGORY_URL = "/api/createcategory";
 const DELETE_CATEGORY_URL = "/api/createcategory/{id}";
 const GET_ALL_EMPS = "/api/createuser";
-const CREATE_EMPLOYEE = "/createuser";
 const INITIAL_STATE = {
   allCategories: [],
+  allEmployees: [],
   category: {},
   employee: {},
   file: {},
@@ -98,13 +98,15 @@ const EmpManagmentProvider = (props) => {
 
   function getAllEmps() {
     Api.get(GET_ALL_EMPS).then((rsp) => {
-      console.log(rsp);
+      console.log("getAllEmps::", rsp.data);
+      setState({ ...state, allEmployees: rsp.data });
     });
   }
 
+
   function createNewEmployee(employee) {
+    console.log(employee, "emmppployee");
     const formData = new FormData();
-    console.log("formData", formData);
     formData.append("emp_name", employee.emp_name),
       formData.append("emp_email", employee.emp_email),
       formData.append("emp_salary", employee.emp_salary),
@@ -112,9 +114,11 @@ const EmpManagmentProvider = (props) => {
       formData.append("emp_password", employee.emp_password),
       formData.append("emp_categoryId", employee.emp_categoryId),
       formData.append("emp_image", state.file.data);
-      console.log(state.file);
-    Api.post("/api/createuser", formData).then(() => {});
-    getAllEmps();
+    console.log(state.file);
+    Api.post("/api/createuser", formData).then((rsp) => {
+      console.log("createuserden gelen response:", rsp);
+      getAllEmps();
+    });
   }
 };
 
