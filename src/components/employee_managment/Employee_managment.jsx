@@ -21,7 +21,7 @@ const EmployeeManagment = () => {
       <button onClick={navigateToAddUserPage} className="btn btn-success m-4">
         Add Employee
       </button>
-      <table className="table ml-4">
+      <table className="table">
         <thead>
           <tr>
             <th scope="col">Name</th>
