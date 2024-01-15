@@ -1,4 +1,3 @@
-
 const HomePage = () => {
   return (
     <>
@@ -31,16 +30,6 @@ const HomePage = () => {
               style={{ width: "100%", height: "1px", background: "#CFCED0" }}
             />
             <h5 className="card-text pt-4">Total 2</h5>
-          </div>
-        </div>
-
-        <div className="card col-3">
-          <div className="card-body">
-            <h4 className="card-title text-center">Salary</h4>
-            <div
-              style={{ width: "100%", height: "1px", background: "#CFCED0" }}
-            />
-            <h5 className="card-text pt-4">Total 7945</h5>
           </div>
         </div>
       </div>

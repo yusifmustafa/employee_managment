@@ -1,14 +1,32 @@
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { EmpManagmentContext } from "../../context/EmpManagmentProvider";
+import {
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+} from "@mui/material";
 
 const EmployeeManagment = () => {
+  const [open, setOpen] = useState(false);
+
   const context = useContext(EmpManagmentContext);
   const { allEmployees, getAllEmps } = context;
   console.log("allEmpss:", allEmployees);
   const navigate = useNavigate();
   const navigateToAddUserPage = () => {
     navigate("/addUser");
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const handleOpen = () => {
+    setOpen(true);
   };
 
   useEffect(() => {
@@ -29,6 +47,7 @@ const EmployeeManagment = () => {
             <th scope="col">Email</th>
             <th scope="col">Address</th>
             <th scope="col">Salary</th>
+            <th scope="col">Role</th>
             <th scope="col">Action</th>
           </tr>
         </thead>
@@ -51,28 +70,36 @@ const EmployeeManagment = () => {
               <td>{item.emp_email}</td>
               <td>{item.emp_address}</td>
               <td>{item.emp_salary}</td>
+              <td>{item.role_name}</td>
               <td>
                 <button className="btn btn-primary mr-3">Edit</button>
-                <button className="btn btn-danger">Delete</button>
-              </td>
-            </tr>
-
-            <tr>
-              <td scope="row">Peter</td>
-              <td>
-                <img src="" alt="" className="img-circle" />
-              </td>{" "}
-              <td>Thornton</td>
-              <td>@fat</td>
-              <td>4000</td>
-              <td>
-                <button className="btn btn-primary mr-3">Edit</button>
-                <button className="btn btn-danger">Delete</button>
+                <button onClick={handleOpen} className="btn btn-danger">
+                  Delete
+                </button>
               </td>
             </tr>
           </tbody>
         ))}
       </table>
+      <Dialog
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title">{"Diqqət!"}</DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description">
+            Seçdiyiniz şəxsin məlumatları silinəcək
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose}>İmtina et</Button>
+          <Button onClick={handleClose} autoFocus>
+            Davam et
+          </Button>
+        </DialogActions>
+      </Dialog>
     </div>
   );
 };

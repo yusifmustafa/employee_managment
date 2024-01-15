@@ -7,12 +7,15 @@ const ALL_CATEGORY_URL = "/api/createcategory/allcategory";
 const CREATE_CATEGORY_URL = "/api/createcategory";
 const DELETE_CATEGORY_URL = "/api/createcategory/{id}";
 const GET_ALL_EMPS = "/api/createuser";
+const GET_ALL_ROLES = "/api/role";
 const INITIAL_STATE = {
   allCategories: [],
   allEmployees: [],
   category: {},
   employee: {},
   file: {},
+  allRoles: [],
+  roles: {},
 };
 
 const EmpManagmentProvider = (props) => {
@@ -29,6 +32,8 @@ const EmpManagmentProvider = (props) => {
         getAllEmps: getAllEmps,
         handleOnChangeFile: handleOnChangeFile,
         createNewEmployee: createNewEmployee,
+        getAllRoles: getAllRoles,
+        handleOnChangeRoles: handleOnChangeRoles,
       }}
     >
       {props.children}
@@ -50,6 +55,7 @@ const EmpManagmentProvider = (props) => {
 
   function handleOnChangeFile(e) {
     const data = e.target.files[0];
+
     console.log("data:", data);
     setState((prev) => ({
       ...prev,
@@ -61,6 +67,7 @@ const EmpManagmentProvider = (props) => {
       },
     }));
   }
+
   function handleOnChangeAddCategory(e) {
     const { name, value } = e;
     setState((prev) => ({
@@ -72,15 +79,15 @@ const EmpManagmentProvider = (props) => {
     }));
   }
 
-  function getAllCategories() {
-    Api.get(ALL_CATEGORY_URL)
-      .then((rsp) => {
-        console.log(rsp.data);
-        setState({ ...state, allCategories: rsp.data });
-      })
-      .catch((err) => {
-        console.log("Error fetching categories:", err);
-      });
+  function handleOnChangeRoles(e) {
+    const { name, value } = e;
+    setState((prev) => ({
+      ...prev,
+      roles: {
+        ...prev.roles,
+        [name]: value,
+      },
+    }));
   }
 
   function createNewCategory(newCategory) {
@@ -103,9 +110,9 @@ const EmpManagmentProvider = (props) => {
     });
   }
 
-
   function createNewEmployee(employee) {
     console.log(employee, "emmppployee");
+
     const formData = new FormData();
     formData.append("emp_name", employee.emp_name),
       formData.append("emp_email", employee.emp_email),
@@ -114,11 +121,50 @@ const EmpManagmentProvider = (props) => {
       formData.append("emp_password", employee.emp_password),
       formData.append("emp_categoryId", employee.emp_categoryId),
       formData.append("emp_image", state.file.data);
-    console.log(state.file);
+
+    console.log("fomrdata", formData);
+
+    console.log("state file", state.file.data);
     Api.post("/api/createuser", formData).then((rsp) => {
       console.log("createuserden gelen response:", rsp);
       getAllEmps();
     });
+  }
+
+  //Get ile rollari getirdiyim method
+  async function getAllRoles() {
+    console.log(state);
+    await Api.get(GET_ALL_ROLES).then((rsp) => {
+      if (rsp) {
+        console.log("prev state", state);
+        // setState({ ...state, allRoles: rsp.data });
+
+        setState((prev) => {
+          console.log("prvv", prev);
+
+          return {
+            ...prev,
+            allRoles: rsp.data,
+          };
+        });
+      }
+    });
+  }
+
+  //Get ile kategoriyalari getirdiyim method
+  async function getAllCategories() {
+    await Api.get(ALL_CATEGORY_URL)
+      .then((rsp) => {
+        console.log("Categories rsp.data:", rsp.data);
+        setState((prev) => ({
+          ...prev,
+          allCategories: rsp.data,
+        }));
+        console.log("getALlCategories State:::", state);
+      })
+      .catch((err) => {
+        console.log("Error fetching categories:", err);
+      });
   }
 };
 

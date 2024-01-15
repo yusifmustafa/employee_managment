@@ -10,13 +10,16 @@ const Add_employee = () => {
     handleOnChangeFile,
     allCategories,
     getAllCategories,
+    getAllRoles,
+    handleOnChangeRoles,
+    allRoles,
   } = context;
   console.log("employee", employee);
-  // console.log("file:", file);
   console.log("emp_category:", employee.emp_categoryId);
 
   useEffect(() => {
     getAllCategories();
+    getAllRoles();
   }, []);
 
   return (
@@ -124,11 +127,28 @@ const Add_employee = () => {
                 value: e.target.value,
               });
             }}
-            value={employee.emp_categoryId ? employee.emp_categoryId : ""}
           >
             {allCategories.map((category) => (
               <option key={category.id} value={category.id}>
                 {category.category_name}
+              </option>
+            ))}
+          </select>
+          <label htmlFor="exampleFormControlSelect1">Role</label>
+          <select
+            name="emp_categoryId"
+            className="form-control"
+            id="exampleFormControlSelect1"
+            onChange={(e) => {
+              handleOnChangeRoles({
+                name: e.target.name,
+                value: e.target.value,
+              });
+            }}
+          >
+            {allRoles.map((role) => (
+              <option key={role.id} value={role.id}>
+                {role.role_name}
               </option>
             ))}
           </select>
@@ -143,7 +163,7 @@ const Add_employee = () => {
           </div>
         </div>
         <button
-          style={{ width: "20%" }}
+          style={{ width: "20%", marginBottom: "15px" }}
           className="btn btn-primary"
           onClick={() => {
             createNewEmployee(employee);
