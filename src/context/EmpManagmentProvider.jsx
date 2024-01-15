@@ -34,6 +34,7 @@ const EmpManagmentProvider = (props) => {
         createNewEmployee: createNewEmployee,
         getAllRoles: getAllRoles,
         handleOnChangeRoles: handleOnChangeRoles,
+        deleteEmployee: deleteEmployee,
       }}
     >
       {props.children}
@@ -105,8 +106,14 @@ const EmpManagmentProvider = (props) => {
 
   function getAllEmps() {
     Api.get(GET_ALL_EMPS).then((rsp) => {
-      console.log("getAllEmps::", rsp.data);
-      setState({ ...state, allEmployees: rsp.data });
+      console.log("getAllEmps:", rsp.data);
+      setState((prev) => {
+        console.log("getAllEmps prev:", prev);
+        return {
+          ...prev,
+          allEmployees: rsp.data,
+        };
+      });
     });
   }
 
@@ -131,17 +138,13 @@ const EmpManagmentProvider = (props) => {
     });
   }
 
-  //Get ile rollari getirdiyim method
   async function getAllRoles() {
     console.log(state);
     await Api.get(GET_ALL_ROLES).then((rsp) => {
       if (rsp) {
         console.log("prev state", state);
-        // setState({ ...state, allRoles: rsp.data });
-
         setState((prev) => {
-          console.log("prvv", prev);
-
+          console.log("getAllRolesPrev", prev);
           return {
             ...prev,
             allRoles: rsp.data,
@@ -151,7 +154,6 @@ const EmpManagmentProvider = (props) => {
     });
   }
 
-  //Get ile kategoriyalari getirdiyim method
   async function getAllCategories() {
     await Api.get(ALL_CATEGORY_URL)
       .then((rsp) => {
@@ -165,6 +167,12 @@ const EmpManagmentProvider = (props) => {
       .catch((err) => {
         console.log("Error fetching categories:", err);
       });
+  }
+
+  function deleteEmployee(id) {
+    Api.delete(`http://localhost:5000/api/createuser/${id}`).then((rsp) => {
+      console.log(rsp);
+    });
   }
 };
 

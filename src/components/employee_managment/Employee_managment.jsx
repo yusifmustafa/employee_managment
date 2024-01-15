@@ -14,7 +14,7 @@ const EmployeeManagment = () => {
   const [open, setOpen] = useState(false);
 
   const context = useContext(EmpManagmentContext);
-  const { allEmployees, getAllEmps } = context;
+  const { allEmployees, getAllEmps, deleteEmployee } = context;
   console.log("allEmpss:", allEmployees);
   const navigate = useNavigate();
   const navigateToAddUserPage = () => {
@@ -73,7 +73,12 @@ const EmployeeManagment = () => {
               <td>{item.role_name}</td>
               <td>
                 <button className="btn btn-primary mr-3">Edit</button>
-                <button onClick={handleOpen} className="btn btn-danger">
+                <button
+                  onClick={() => {
+                    deleteEmployee(item.id);
+                  }}
+                  className="btn btn-danger"
+                >
                   Delete
                 </button>
               </td>
