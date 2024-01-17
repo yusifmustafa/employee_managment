@@ -15,7 +15,6 @@ const INITIAL_STATE = {
   employee: {},
   file: {},
   allRoles: [],
-  roles: {},
 };
 
 const EmpManagmentProvider = (props) => {
@@ -33,7 +32,6 @@ const EmpManagmentProvider = (props) => {
         handleOnChangeFile: handleOnChangeFile,
         createNewEmployee: createNewEmployee,
         getAllRoles: getAllRoles,
-        handleOnChangeRoles: handleOnChangeRoles,
         deleteEmployee: deleteEmployee,
       }}
     >
@@ -80,17 +78,6 @@ const EmpManagmentProvider = (props) => {
     }));
   }
 
-  function handleOnChangeRoles(e) {
-    const { name, value } = e;
-    setState((prev) => ({
-      ...prev,
-      roles: {
-        ...prev.roles,
-        [name]: value,
-      },
-    }));
-  }
-
   function createNewCategory(newCategory) {
     Api.post(CREATE_CATEGORY_URL, newCategory).then(() => {
       getAllCategories();
@@ -127,6 +114,7 @@ const EmpManagmentProvider = (props) => {
       formData.append("emp_address", employee.emp_address),
       formData.append("emp_password", employee.emp_password),
       formData.append("emp_categoryId", employee.emp_categoryId),
+      formData.append("emp_roleId", employee.emp_roleId),
       formData.append("emp_image", state.file.data);
 
     console.log("fomrdata", formData);
@@ -172,6 +160,7 @@ const EmpManagmentProvider = (props) => {
   function deleteEmployee(id) {
     Api.delete(`http://localhost:5000/api/createuser/${id}`).then((rsp) => {
       console.log(rsp);
+      getAllEmps();
     });
   }
 };

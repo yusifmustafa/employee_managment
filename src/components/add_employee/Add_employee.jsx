@@ -11,11 +11,9 @@ const Add_employee = () => {
     allCategories,
     getAllCategories,
     getAllRoles,
-    handleOnChangeRoles,
     allRoles,
   } = context;
   console.log("employee", employee);
-  console.log("emp_category:", employee.emp_categoryId);
 
   useEffect(() => {
     getAllCategories();
@@ -134,13 +132,13 @@ const Add_employee = () => {
               </option>
             ))}
           </select>
-          <label htmlFor="exampleFormControlSelect1">Role</label>
+          <label htmlFor="exampleFormControlSelect2">Role</label>
           <select
-            name="emp_categoryId"
+            name="emp_roleId"
             className="form-control"
-            id="exampleFormControlSelect1"
+            id="exampleFormControlSelect2"
             onChange={(e) => {
-              handleOnChangeRoles({
+              handleOnChangeAddEmployee({
                 name: e.target.name,
                 value: e.target.value,
               });
