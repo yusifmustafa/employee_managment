@@ -15,6 +15,7 @@ const INITIAL_STATE = {
   employee: {},
   file: {},
   allRoles: [],
+  openModal: false,
 };
 
 const EmpManagmentProvider = (props) => {
@@ -33,6 +34,7 @@ const EmpManagmentProvider = (props) => {
         createNewEmployee: createNewEmployee,
         getAllRoles: getAllRoles,
         deleteEmployee: deleteEmployee,
+        getEmployeeById: getEmployeeById,
       }}
     >
       {props.children}
@@ -100,6 +102,27 @@ const EmpManagmentProvider = (props) => {
           ...prev,
           allEmployees: rsp.data,
         };
+      });
+    });
+  }
+
+  function getEmployeeById(id) {
+    Api.get(`/api/createuser/${id}`).then((rsp) => {
+      console.log("getEmpById:", rsp.data);
+      const responseData = rsp?.data;
+      responseData.map((item) => {
+        const obj = {
+          id: item.id,
+          emp_name: item.emp_name,
+          emp_email: item.emp_email,
+          emp_salary: item.emp_salary,
+          emp_address: item.emp_address,
+          emp_password: item.emp_password,
+          emp_categoryId: item.emp_categoryId,
+          emp_roleId: item.emp_roleId,
+          emp_image: item.emp_image,
+        };
+        setState({ ...state, employee: obj, openModal: true });
       });
     });
   }

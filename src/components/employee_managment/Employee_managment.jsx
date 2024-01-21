@@ -9,12 +9,19 @@ import {
   DialogContentText,
   DialogTitle,
 } from "@mui/material";
+import UpdateEmployee from "../update_employee/UpdateEmployee.jsx";
 
 const EmployeeManagment = () => {
   const [open, setOpen] = useState(false);
 
   const context = useContext(EmpManagmentContext);
-  const { allEmployees, getAllEmps, deleteEmployee } = context;
+  const {
+    allEmployees,
+    getAllEmps,
+    deleteEmployee,
+    getEmployeeById,
+    openModal,
+  } = context;
   console.log("allEmpss:", allEmployees);
   const navigate = useNavigate();
   const navigateToAddUserPage = () => {
@@ -72,7 +79,14 @@ const EmployeeManagment = () => {
               <td>{item.emp_salary}</td>
               <td>{item.role_name}</td>
               <td>
-                <button className="btn btn-primary mr-3">Edit</button>
+                <button
+                  onClick={() => {
+                    getEmployeeById(item.id);
+                  }}
+                  className="btn btn-primary mr-3"
+                >
+                  Edit
+                </button>
                 <button
                   onClick={() => {
                     deleteEmployee(item.id);
@@ -104,6 +118,10 @@ const EmployeeManagment = () => {
             Davam et
           </Button>
         </DialogActions>
+      </Dialog>
+
+      <Dialog open={openModal}>
+        <UpdateEmployee />
       </Dialog>
     </div>
   );
