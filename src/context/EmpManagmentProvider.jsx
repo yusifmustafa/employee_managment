@@ -35,6 +35,7 @@ const EmpManagmentProvider = (props) => {
         getAllRoles: getAllRoles,
         deleteEmployee: deleteEmployee,
         getEmployeeById: getEmployeeById,
+        handleClose: handleClose,
       }}
     >
       {props.children}
@@ -52,6 +53,10 @@ const EmpManagmentProvider = (props) => {
         [name]: value,
       },
     }));
+  }
+
+  function handleClose() {
+    setState({ ...state, openModal: false });
   }
 
   function handleOnChangeFile(e) {
