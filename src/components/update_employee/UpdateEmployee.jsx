@@ -1,6 +1,7 @@
 import React, { useContext, useEffect } from "react";
 import {
   AppBar,
+  Box,
   Button,
   Dialog,
   Divider,
@@ -30,6 +31,7 @@ const UpdateEmployee = () => {
     handleOnChangeFile,
     allRoles,
     getAllRoles,
+    updateEmployee,
   } = context;
 
   useEffect(() => {
@@ -53,9 +55,6 @@ const UpdateEmployee = () => {
             <Typography sx={{ ml: 2, flex: 1 }} variant="h6" component="div">
               Update User
             </Typography>
-            <Button autoFocus color="inherit" onClick={handleClose}>
-              save
-            </Button>
           </Toolbar>
         </AppBar>
         <List>
@@ -203,6 +202,24 @@ const UpdateEmployee = () => {
             </FormControl>
           </ListItemButton>
         </List>
+        <Box
+          sx={{
+            margin: 2,
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <Button
+            fullWidth
+            onClick={() => {
+              updateEmployee(employee.id, employee);
+            }}
+            variant="contained"
+          >
+            Save
+          </Button>
+        </Box>
       </Dialog>
     </div>
   );

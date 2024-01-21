@@ -36,6 +36,7 @@ const EmpManagmentProvider = (props) => {
         deleteEmployee: deleteEmployee,
         getEmployeeById: getEmployeeById,
         handleClose: handleClose,
+        updateEmployee: updateEmployee,
       }}
     >
       {props.children}
@@ -190,6 +191,19 @@ const EmpManagmentProvider = (props) => {
       console.log(rsp);
       getAllEmps();
     });
+  }
+
+  function updateEmployee(emp_id, employee) {
+    Api.put(`http://localhost:5000/api/createuser/${emp_id}`, employee).then(
+      (rsp) => {
+        console.log("putdan qayidan rsp:");
+        setState((prev) => ({
+          ...prev,
+          employee: rsp.data,
+        }));
+        getAllEmps();
+      },
+    );
   }
 };
 
