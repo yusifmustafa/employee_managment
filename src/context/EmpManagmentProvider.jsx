@@ -1,5 +1,6 @@
 import React from "react";
 import Api from "../utils/Api.js";
+import { toast } from "react-toastify";
 
 export const EmpManagmentContext = React.createContext({});
 
@@ -20,6 +21,7 @@ const INITIAL_STATE = {
 
 const EmpManagmentProvider = (props) => {
   const [state, setState] = React.useState(INITIAL_STATE);
+
   return (
     <EmpManagmentContext.Provider
       value={{
@@ -189,19 +191,41 @@ const EmpManagmentProvider = (props) => {
   function deleteEmployee(id) {
     Api.delete(`http://localhost:5000/api/createuser/${id}`).then((rsp) => {
       console.log(rsp);
-      getAllEmps();
+      if (rsp.data === "OK") {
+        const notify = () => {
+          toast.success("Uğurla silindi");
+        };
+        getAllEmps();
+        notify();
+      } else {
+        const notify = () => {
+          toast.error("Xəta baş verdi");
+        };
+        notify();
+      }
     });
   }
 
   function updateEmployee(emp_id, employee) {
     Api.put(`http://localhost:5000/api/createuser/${emp_id}`, employee).then(
       (rsp) => {
-        console.log("putdan qayidan rsp:");
-        setState((prev) => ({
-          ...prev,
-          employee: rsp.data,
-        }));
-        getAllEmps();
+        if (rsp.data) {
+          const notify = () => {
+            toast.success("Dəyişikliklər qeydə alındı");
+          };
+          notify();
+          setState({ ...state, openModal: false });
+          setState((prev) => ({
+            ...prev,
+            employee: rsp.data,
+          }));
+          getAllEmps();
+        } else {
+          const notify = () => {
+            toast.error("Xəta baş verdi");
+          };
+          notify();
+        }
       },
     );
   }

@@ -10,6 +10,8 @@ import {
   DialogTitle,
 } from "@mui/material";
 import UpdateEmployee from "../update_employee/UpdateEmployee.jsx";
+import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer } from "react-toastify";
 
 const EmployeeManagment = () => {
   const [open, setOpen] = useState(false);
@@ -123,6 +125,7 @@ const EmployeeManagment = () => {
       <Dialog open={openModal}>
         <UpdateEmployee />
       </Dialog>
+      <ToastContainer />
     </div>
   );
 };
