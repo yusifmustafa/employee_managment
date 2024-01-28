@@ -1,6 +1,8 @@
 import { Box, Modal, Typography } from "@mui/material";
 import React, { useContext, useEffect } from "react";
 import { EmpManagmentContext } from "../../context/EmpManagmentProvider.jsx";
+import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer } from "react-toastify";
 
 const Category = () => {
   const [openCategoryModal, setOpenCategoryModal] = React.useState(false);
@@ -128,6 +130,7 @@ const Category = () => {
           })}
         </div>
       </div>
+      <ToastContainer />
     </div>
   );
 };

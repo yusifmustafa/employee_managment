@@ -1,21 +1,12 @@
 import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { EmpManagmentContext } from "../../context/EmpManagmentProvider";
-import {
-  Button,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogContentText,
-  DialogTitle,
-} from "@mui/material";
+import { Dialog } from "@mui/material";
 import UpdateEmployee from "../update_employee/UpdateEmployee.jsx";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
 
 const EmployeeManagment = () => {
-  const [open, setOpen] = useState(false);
-
   const context = useContext(EmpManagmentContext);
   const {
     allEmployees,
@@ -23,21 +14,8 @@ const EmployeeManagment = () => {
     deleteEmployee,
     getEmployeeById,
     openModal,
+    handleOpenAddUserModal,
   } = context;
-  console.log("allEmpss:", allEmployees);
-  const navigate = useNavigate();
-  const navigateToAddUserPage = () => {
-    navigate("/addUser");
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-  };
-
-  const handleOpen = () => {
-    setOpen(true);
-  };
-
   useEffect(() => {
     getAllEmps();
   }, []);
@@ -45,7 +23,12 @@ const EmployeeManagment = () => {
   return (
     <div>
       <h3 className="text-center mt-3">Employee List</h3>
-      <button onClick={navigateToAddUserPage} className="btn btn-success m-4">
+      <button
+        onClick={() => {
+          handleOpenAddUserModal();
+        }}
+        className="btn btn-success m-4"
+      >
         Add Employee
       </button>
       <table className="table">
@@ -102,26 +85,6 @@ const EmployeeManagment = () => {
           </tbody>
         ))}
       </table>
-      <Dialog
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="alert-dialog-title"
-        aria-describedby="alert-dialog-description"
-      >
-        <DialogTitle id="alert-dialog-title">{"Diqqət!"}</DialogTitle>
-        <DialogContent>
-          <DialogContentText id="alert-dialog-description">
-            Seçdiyiniz şəxsin məlumatları silinəcək
-          </DialogContentText>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleClose}>İmtina et</Button>
-          <Button onClick={handleClose} autoFocus>
-            Davam et
-          </Button>
-        </DialogActions>
-      </Dialog>
-
       <Dialog open={openModal}>
         <UpdateEmployee />
       </Dialog>

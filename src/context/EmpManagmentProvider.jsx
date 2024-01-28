@@ -1,6 +1,7 @@
 import React from "react";
 import Api from "../utils/Api.js";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 export const EmpManagmentContext = React.createContext({});
 
@@ -22,6 +23,8 @@ const INITIAL_STATE = {
 const EmpManagmentProvider = (props) => {
   const [state, setState] = React.useState(INITIAL_STATE);
 
+  const navigate = useNavigate();
+
   return (
     <EmpManagmentContext.Provider
       value={{
@@ -39,6 +42,7 @@ const EmpManagmentProvider = (props) => {
         getEmployeeById: getEmployeeById,
         handleClose: handleClose,
         updateEmployee: updateEmployee,
+        handleOpenAddUserModal: handleOpenAddUserModal,
       }}
     >
       {props.children}
@@ -60,6 +64,10 @@ const EmpManagmentProvider = (props) => {
 
   function handleClose() {
     setState({ ...state, openModal: false });
+  }
+
+  function handleOpenAddUserModal() {
+    navigate("/addUser");
   }
 
   function handleOnChangeFile(e) {
@@ -91,12 +99,20 @@ const EmpManagmentProvider = (props) => {
   function createNewCategory(newCategory) {
     Api.post(CREATE_CATEGORY_URL, newCategory).then(() => {
       getAllCategories();
-      setState({ ...state, category: {} });
+      const notify = () => {
+        toast.success("Yeni kategoriya yaradıldı");
+      };
+      notify();
+      setState({ ...state, category: {}, open: false });
     });
   }
 
   function deleteCategory(id) {
     Api.delete(DELETE_CATEGORY_URL.replace("{id}", id)).then(() => {
+      const notify = () => {
+        toast.success("Uğurla silindi");
+      };
+      notify();
       getAllCategories();
     });
   }
@@ -207,6 +223,7 @@ const EmpManagmentProvider = (props) => {
   }
 
   function updateEmployee(emp_id, employee) {
+    console.log("empPut:", employee);
     Api.put(`http://localhost:5000/api/createuser/${emp_id}`, employee).then(
       (rsp) => {
         if (rsp.data) {
