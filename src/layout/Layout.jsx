@@ -1,6 +1,7 @@
-import { Outlet } from "react-router-dom";
 import Navbar from "../components/navbar/Navbar";
 import EmpManagmentProvider from "../context/EmpManagmentProvider.jsx";
+import { Outlet } from "react-router-dom";
+
 const Layout = () => {
   return (
     <EmpManagmentProvider>

@@ -1,5 +1,4 @@
-import { useContext, useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useContext, useEffect } from "react";
 import { EmpManagmentContext } from "../../context/EmpManagmentProvider";
 import { Dialog } from "@mui/material";
 import UpdateEmployee from "../update_employee/UpdateEmployee.jsx";

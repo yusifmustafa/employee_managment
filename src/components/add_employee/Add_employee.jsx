@@ -7,7 +7,6 @@ const Add_employee = () => {
     handleOnChangeAddEmployee,
     employee,
     createNewEmployee,
-    handleOnChangeFile,
     allCategories,
     getAllCategories,
     getAllRoles,
@@ -156,7 +155,7 @@ const Add_employee = () => {
               name="emp_image"
               type="file"
               className="form-control-file"
-              onChange={handleOnChangeFile}
+              onChange={handleOnChangeAddEmployee}
             />
           </div>
         </div>

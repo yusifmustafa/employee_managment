@@ -15,9 +15,11 @@ const INITIAL_STATE = {
   allEmployees: [],
   category: {},
   employee: {},
-  file: {},
+  authUser: {},
   allRoles: [],
   openModal: false,
+  isLoggedIn: false,
+  roleId: null,
 };
 
 const EmpManagmentProvider = (props) => {
@@ -35,7 +37,6 @@ const EmpManagmentProvider = (props) => {
         deleteCategory: deleteCategory,
         handleOnChangeAddEmployee: handleOnChangeAddEmployee,
         getAllEmps: getAllEmps,
-        handleOnChangeFile: handleOnChangeFile,
         createNewEmployee: createNewEmployee,
         getAllRoles: getAllRoles,
         deleteEmployee: deleteEmployee,
@@ -43,23 +44,45 @@ const EmpManagmentProvider = (props) => {
         handleClose: handleClose,
         updateEmployee: updateEmployee,
         handleOpenAddUserModal: handleOpenAddUserModal,
+        handleAuthLogin: handleAuthLogin,
+        handleOnChangeAuthLogin: handleOnChangeAuthLogin,
       }}
     >
       {props.children}
     </EmpManagmentContext.Provider>
   );
 
-  function handleOnChangeAddEmployee(e) {
+  function handleOnChangeAuthLogin(e) {
     const { name, value } = e;
-    console.log("onchange icindeki value:", value);
-
     setState((prev) => ({
       ...prev,
-      employee: {
-        ...prev.employee,
+      authUser: {
+        ...prev.authUser,
         [name]: value,
       },
     }));
+  }
+
+  function handleOnChangeAddEmployee(e) {
+    const { name, value, type } = e;
+
+    if (type === "change") {
+      setState((prev) => ({
+        ...prev,
+        employee: {
+          ...prev.employee,
+          emp_image: e.target.files[0],
+        },
+      }));
+    } else {
+      setState((prev) => ({
+        ...prev,
+        employee: {
+          ...prev.employee,
+          [name]: value,
+        },
+      }));
+    }
   }
 
   function handleClose() {
@@ -68,21 +91,6 @@ const EmpManagmentProvider = (props) => {
 
   function handleOpenAddUserModal() {
     navigate("/addUser");
-  }
-
-  function handleOnChangeFile(e) {
-    const data = e.target.files[0];
-
-    console.log("data:", data);
-    setState((prev) => ({
-      ...prev,
-      file: {
-        name: data.name,
-        type: data.type,
-        size: data.size,
-        data: data,
-      },
-    }));
   }
 
   function handleOnChangeAddCategory(e) {
@@ -152,8 +160,6 @@ const EmpManagmentProvider = (props) => {
   }
 
   function createNewEmployee(employee) {
-    console.log(employee, "emmppployee");
-
     const formData = new FormData();
     formData.append("emp_name", employee.emp_name),
       formData.append("emp_email", employee.emp_email),
@@ -162,11 +168,10 @@ const EmpManagmentProvider = (props) => {
       formData.append("emp_password", employee.emp_password),
       formData.append("emp_categoryId", employee.emp_categoryId),
       formData.append("emp_roleId", employee.emp_roleId),
-      formData.append("emp_image", state.file.data);
+      formData.append("emp_image", employee.emp_image);
 
     console.log("fomrdata", formData);
 
-    console.log("state file", state.file.data);
     Api.post("/api/createuser", formData).then((rsp) => {
       console.log("createuserden gelen response:", rsp);
       getAllEmps();
@@ -245,6 +250,17 @@ const EmpManagmentProvider = (props) => {
         }
       },
     );
+  }
+
+  async function handleAuthLogin(authUser) {
+    console.log(authUser);
+    await Api.post("/api/authuser", authUser).then((rsp) => {
+      if (rsp.data.status === true) {
+        setState({ ...state, isLoggedIn: true, roleId: rsp.data.emp_roleId });
+        localStorage.setItem("token", rsp.data.token);
+      }
+      console.log(rsp.data);
+    });
   }
 };
 

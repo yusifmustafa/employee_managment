@@ -1,6 +1,7 @@
 import axios from "axios";
 
 const BASE_URL = "http://localhost:5000/";
+axios.defaults.withCredentials = true;
 
 export const headers = new Headers({
   Accept: "application/json;charset=UTF-8",

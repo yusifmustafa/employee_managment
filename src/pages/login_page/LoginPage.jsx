@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext, useState } from "react";
 import {
   Box,
   Button,
@@ -9,7 +9,11 @@ import {
   ThemeProvider,
   Typography,
 } from "@mui/material";
+import { EmpManagmentContext } from "../../context/EmpManagmentProvider.jsx";
+
 const LoginPage = () => {
+  const context = useContext(EmpManagmentContext);
+  const { handleAuthLogin, handleOnChangeAuthLogin, authUser } = context;
   const defaultTheme = createTheme();
   return (
     <>
@@ -32,24 +36,38 @@ const LoginPage = () => {
                 margin="normal"
                 required
                 fullWidth
-                id="email"
                 label="Email Address"
-                name="email"
+                name="emp_email"
                 autoComplete="email"
+                onChange={(e) => {
+                  handleOnChangeAuthLogin({
+                    name: e.target.name,
+                    value: e.target.value,
+                  });
+                }}
+                value={authUser.emp_email ? authUser.emp_email : ""}
                 autoFocus
               />
               <TextField
                 margin="normal"
                 required
                 fullWidth
-                name="password"
+                name="emp_password"
                 label="Password"
                 type="password"
-                id="password"
                 autoComplete="current-password"
+                onChange={(e) => {
+                  handleOnChangeAuthLogin({
+                    name: e.target.name,
+                    value: e.target.value,
+                  });
+                }}
+                value={authUser.emp_password ? authUser.emp_password : ""}
               />
               <Button
-                type="submit"
+                onClick={() => {
+                  handleAuthLogin(authUser);
+                }}
                 fullWidth
                 variant="contained"
                 sx={{ mt: 3, mb: 2 }}
