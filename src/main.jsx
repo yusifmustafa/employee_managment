@@ -1,10 +1,10 @@
 import ReactDOM from "react-dom/client";
-import AppRouter from "./routes/index.jsx";
-import { BrowserRouter as Router, RouterProvider } from "react-router-dom";
 import "./global.css";
+import Layout from "./layout/Layout.jsx";
+import { BrowserRouter as Router } from "react-router-dom";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <Router>
-    <AppRouter />
+    <Layout />
   </Router>,
 );

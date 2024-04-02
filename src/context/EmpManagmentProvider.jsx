@@ -20,6 +20,7 @@ const INITIAL_STATE = {
   openModal: false,
   isLoggedIn: false,
   roleId: null,
+  loggedUser: {},
 };
 
 const EmpManagmentProvider = (props) => {
@@ -256,7 +257,12 @@ const EmpManagmentProvider = (props) => {
     console.log(authUser);
     await Api.post("/api/authuser", authUser).then((rsp) => {
       if (rsp.data.status === true) {
-        setState({ ...state, isLoggedIn: true, roleId: rsp.data.emp_roleId });
+        setState({
+          ...state,
+          isLoggedIn: true,
+          roleId: rsp.data.emp_roleId,
+          loggedUser: rsp.data.user,
+        });
         localStorage.setItem("token", rsp.data.token);
       }
       console.log(rsp.data);

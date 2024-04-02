@@ -1,24 +1,40 @@
-import { Routes, Route } from "react-router-dom";
 import LoginPage from "../pages/login_page/LoginPage.jsx";
-import NotFound from "../pages/not_found/NotFound.jsx";
-import HomePage from "../components/home_page/HomePage.jsx";
-import EmployeeManagment from "../components/employee_managment/employee_managment.jsx";
+import { Dashboard } from "@mui/icons-material";
 import Add_employee from "../components/add_employee/Add_employee.jsx";
+import EmployeeManagment from "../components/employee_managment/Employee_managment.jsx";
 import Category from "../components/category/Category.jsx";
-import Layout from "../layout/Layout.jsx";
+import NotFound from "../pages/not_found/NotFound.jsx";
 
-const AppRouter = () => (
-  <Routes>
-    <Route path="/" element={<Layout />}>
-      <Route index element={<LoginPage />} />
-      <Route path="dashboard" element={<HomePage />} />
-      <Route path="manageEmployees" element={<EmployeeManagment />} />
-      <Route path="userList" element="user list" />
-      <Route path="addUser" element={<Add_employee />} />
-      <Route path="category" element={<Category />} />
-      <Route path="*" element={<NotFound />} />
-    </Route>
-  </Routes>
-);
+const token = localStorage.getItem("token");
+console.log("localstoragedeki token", token);
 
-export default AppRouter;
+export const nav = [
+  {
+    path: "/login",
+    element: <LoginPage />,
+  },
+  {
+    path: "/homePage",
+    element: <Dashboard />,
+  },
+  {
+    path: "/addUser",
+    element: <Add_employee />,
+  },
+  // {
+  //   path: "/userList",
+  //   element: "user list",
+  // },
+  {
+    path: "/manageEmployees",
+    element: <EmployeeManagment />,
+  },
+  {
+    path: "/category",
+    element: <Category />,
+  },
+  {
+    path: "*",
+    element: <NotFound />,
+  },
+];
